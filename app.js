@@ -18,6 +18,8 @@ mongoose.connect(
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.use(express.static("public"));
+
 // Set EJS as templating engine
 app.set("view engine", "ejs");
 
@@ -47,7 +49,7 @@ app.get("/", (req, res) => {
   });
 });
 
-app.post("/", upload.single("photo"), (req, res, next) => {
+app.post("/", upload.single("image"), (req, res, next) => {
   var obj = {
     name: req.body.name,
     desc: req.body.desc,
@@ -62,7 +64,7 @@ app.post("/", upload.single("photo"), (req, res, next) => {
     if (err) {
       console.log(err);
     } else {
-      // item.save();
+      item.save();
       res.redirect("/");
     }
   });
